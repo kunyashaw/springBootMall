@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: 47.105.93.58:9092,118.193.47.193:9092,106.75.171.104:9092
+    producer:
+      #这个值只能大不能小了，否则会影响sleuth。可以使用的最大内存来缓存等待发送到server端的消息
+      buffer-memory: 1048576  # 这是最小的?
+      retries: 0
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        # 单个请求的最大大小（以字节为单位）
+        max.request.size: 2097152
+        # 从发送请求到收到ACK确认等待的最长时间（超时时间）
+        request.timeout.ms: 40000
+        # 这项设置设定了批量处理的更高的延迟边界：一旦我们获得某个partition的batch.size，他将会立即发送而不顾这项设置，然而如果我们获得消息字节数比这项设置要小的多，
+        # 我们需要“linger”特定的时间以获取更多的消息。 这个设置默认为0，即没有延迟。设定linger.ms=5，例如，将会减少请求数目，但是同时会增加5ms的延迟。
+        linger.ms: 1
+        # 消息发送失败的情况下，重试发送的次数 存在消息发送是成功的，只是由于网络导致ACK没收到的重试，会出现消息被重复发送的情况
+        message.send.max.retries: 0
+    consumer:
+      # 指定默认消费者group id
+      group-id: zzl
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  data:
+    mongodb:
+      host: 118.193.47.193 # mongodb的连接地址
+      port: 27017 # mongodb的连接端口号
+      database: mall # mongodb的连接的数据库
+  datasource:
+    url: jdbc:mysql://192.168.3.3:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+  redis:
+    host: 192.168.3.3 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
+
+redis:
+  key:
+    prefix:
+      authCode:"portal:authCode"
+    expire:
+      authCode:120
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+
