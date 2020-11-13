@@ -1,6 +1,23 @@
 package com.zzl.demo01.dto;
 
 public class WebLog {
+    @Override
+    public String toString() {
+        return "WebLog{" +
+                "description='" + description + '\'' +
+                ", username='" + username + '\'' +
+                ", startTime=" + startTime +
+                ", spendTime=" + spendTime +
+                ", basePath='" + basePath + '\'' +
+                ", uri='" + uri + '\'' +
+                ", url='" + url + '\'' +
+                ", method='" + method + '\'' +
+                ", ip='" + ip + '\'' +
+                ", parameter=" + parameter +
+                ", result=" + result +
+                '}';
+    }
+
     private String description;
 
     /**

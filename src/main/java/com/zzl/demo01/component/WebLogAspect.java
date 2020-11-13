@@ -1,34 +1,5 @@
 package com.zzl.demo01.component;
 
-//import cn.hutool.core.util.StrUtil;
-//import cn.hutool.core.util.URLUtil;
-//import cn.hutool.json.JSONUtil;
-//
-//import io.swagger.annotations.ApiOperation;
-//import org.aspectj.lang.JoinPoint;
-//import org.aspectj.lang.ProceedingJoinPoint;
-//import org.aspectj.lang.Signature;
-//import org.aspectj.lang.annotation.*;
-//import org.aspectj.lang.reflect.MethodSignature;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.core.annotation.Order;
-//import org.springframework.stereotype.Component;
-//import org.springframework.util.StringUtils;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.context.request.RequestContextHolder;
-//import org.springframework.web.context.request.ServletRequestAttributes;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import java.lang.reflect.Method;
-//import java.lang.reflect.Parameter;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
@@ -42,8 +13,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.core.annotation.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,7 +33,8 @@ import java.util.Map;
 public class WebLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution(public * com.zzl.demo01.controller.*.*(..))")
+
+    @Pointcut("execution( * com.zzl.demo01.controller.*.*(..))")
     public void webLog() {
     }
 

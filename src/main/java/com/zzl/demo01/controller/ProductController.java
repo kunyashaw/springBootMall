@@ -32,7 +32,7 @@ public class ProductController extends BaseController{
 
     @ApiOperation("查询商品")
     @RequestMapping(value = "/check",method = RequestMethod.GET)
-    CommonResult check(){
+    public CommonResult check(){
         return CommonResult.success(psl.list());
     }
 
